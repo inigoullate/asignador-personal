@@ -12,9 +12,7 @@ def rotaciones_por_zona(rotaciones_str, zona_objetivo):
 
 # === Ruta del archivo en OneDrive/SharePoint ===
 # Cambia esto según la carpeta sincronizada en tu ordenador
-ruta_excel = os.path.expanduser(
-    "https://volkswagengroup.sharepoint.com/sites/VWNA_MONTAJE_TB/Turno%20B%20Mandos/Forms/AllItems.aspx?viewid=2003c3af%2D0fbb%2D43f8%2D8463%2D03390692cd39"  # <-- AJUSTAR
-)
+ruta_excel = r"C:\Users\TU_USUARIO\OneDrive - Volkswagen Group\Turno B Mandos\empleados.xlsx"
 
 # Comprobar si el archivo existe
 if not os.path.exists(ruta_excel):
@@ -162,5 +160,6 @@ if zonas_pueden_ceder:
                 "Rotaciones que conoce (destino)",
             ]]
             st.dataframe(df_tri)
+
 
 
