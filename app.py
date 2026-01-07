@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import streamlit as st
 
@@ -9,8 +10,21 @@ def rotaciones_por_zona(rotaciones_str, zona_objetivo):
     rotaciones_filtradas = [r for r in rotaciones if r.startswith(f"{zona_objetivo}.")]
     return ", ".join(rotaciones_filtradas)
 
-# Cargar datos (forzando "Rotaciones que conoce" como texto)
-empleados_df = pd.read_excel("empleados.xlsx", dtype={"Rotaciones que conoce": str})
+# === Ruta del archivo en OneDrive/SharePoint ===
+# Cambia esto según la carpeta sincronizada en tu ordenador
+ruta_excel = os.path.expanduser(
+    "https://volkswagengroup.sharepoint.com/sites/VWNA_MONTAJE_TB/Turno%20B%20Mandos/empleados.xlsx"  # <-- AJUSTAR
+)
+
+# Comprobar si el archivo existe
+if not os.path.exists(ruta_excel):
+    st.error(f"No se encuentra el archivo en la ruta:\n{ruta_excel}\n\n"
+             "Asegúrate de que OneDrive esté sincronizado y que el archivo exista en esa carpeta.")
+    st.stop()
+
+# Cargar Excel privado
+empleados_df = pd.read_excel(ruta_excel, dtype={"Rotaciones que conoce": str})
+
 
 # Asegurar que cualquier valor no texto también se convierta correctamente
 empleados_df["Rotaciones que conoce"] = empleados_df["Rotaciones que conoce"].apply(
